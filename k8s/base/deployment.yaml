@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-api
+  namespace: ntt-devops
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: devops-api
+  template:
+    metadata:
+      labels:
+        app: devops-api
+    spec:
+      containers:
+        - name: devops-api
+          image: nttdevops-flask:v1.0.0-3-g2a07d60-dev
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: API_KEY_VALUE
+              value: "2f5ae96c-b558-4c7b-a590-a501ae1c3f6c"
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: devops-secrets
+                  key: jwt_secret
+          readinessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 8080
+            initialDelaySeconds: 2
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: devops-secrets
+  namespace: ntt-devops
+stringData:
+  jwt_secret: secret-key-for-devops-api-ntt-data

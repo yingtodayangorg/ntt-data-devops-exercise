@@ -1,0 +1,15 @@
+resources:
+  - ../../base
+
+namePrefix: test-
+namespace: ntt-devops-test
+
+labels:
+  - pairs:
+      environment: test
+
+patches:
+  - target:
+      kind: Deployment
+      name: devops-api
+    path: patch-env.yaml

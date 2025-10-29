@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-api
+spec:
+  replicas: 2
+  template:
+    spec:
+      containers:
+        - name: devops-api
+          image: nttdevops-flask:v1.0.0-3-g2a07d60-prod
+          env:
+            - name: ENVIRONMENT
+              value: "prod"   # cambia a test/prod según el overlay
+            - name: LOG_LEVEL
+              value: "ERROR"
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
