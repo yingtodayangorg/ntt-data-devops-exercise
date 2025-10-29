@@ -3,7 +3,7 @@ import jwt
 import time
 import uuid
 import pytest
-from app import create_app
+from app.main import create_app
 
 
 @pytest.fixture()
