@@ -24,5 +24,4 @@ provider "kubectl" {
   load_config_file    = true
   config_path         = var.kubeconfig_path
   apply_retry_count   = 10
-  server_side_applied = true
 }
