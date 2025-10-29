@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: devops-api
-          image: nttdevops-flask:v1.0.0-3-g2a07d60-dev
+          image: nttdevops-flask:${IMAGE_TAG}
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
