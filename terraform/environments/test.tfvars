@@ -1,0 +1,9 @@
+kubeconfig_path   = "./kubeconfig-test.yaml"
+namespace         = "ntt-devops-test"
+environment       = "test"
+image_repo        = "nttdevops-flask"
+image_tag         = "v1.0.0-test"
+image_pull_policy = "IfNotPresent"
+replicas          = 2
+ingress_host      = ""
+enable_kong       = true

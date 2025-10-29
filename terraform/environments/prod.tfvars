@@ -1,0 +1,9 @@
+kubeconfig_path   = "./kubeconfig-prod.yaml"
+namespace         = "ntt-devops-prod"
+environment       = "prod"
+image_repo        = "nttdevops-flask"
+image_tag         = "v1.0.0-prod"
+image_pull_policy = "IfNotPresent"
+replicas          = 3
+ingress_host      = ""
+enable_kong       = true
