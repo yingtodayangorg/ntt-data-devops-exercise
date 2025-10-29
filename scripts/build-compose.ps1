@@ -1,18 +1,21 @@
-# Obtener la etiqueta Git más reciente o usar "dev" si no está disponible
+param(
+    [string]$Environment = "dev"
+)
+
+# Obtiene versión de git o usa fallback
 try {
-    $gitTag = (git describe --tags --always --dirty)
+    $gitTag = (git describe --tags --always)
 } catch {
-    $gitTag = "dev"
+    $gitTag = "v0.0.1"
 }
 
-if (-not $gitTag) { $gitTag = "dev" }
+# Limpia tag si está vacío
+if (-not $gitTag) { $gitTag = "v0.0.1" }
 
-Write-Host "Construyendo imagen con tag: $gitTag" -ForegroundColor Cyan
+# Construye nombre de imagen
+$ImageName = "nttdevops-flask"
+$FullTag = "$gitTag-$Environment"
 
-# Construir imagen Docker con la etiqueta obtenida
-docker build -t "nttdevops-flask:$gitTag" .
+Write-Host "Building image: $($ImageName):$FullTag" -ForegroundColor Cyan
 
-# Levantando la stack con docker-compose usando la etiqueta obtenida
-Write-Host "Levantando stack con docker-compose..." -ForegroundColor Yellow
-$env:IMAGE_TAG = $gitTag
-docker compose up --build
+docker build -t "$($ImageName):$FullTag" .
