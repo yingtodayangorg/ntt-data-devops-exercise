@@ -1,0 +1,9 @@
+apiVersion: configuration.konghq.com/v1
+kind: KongConsumer
+metadata:
+  name: ntt-client
+  namespace: ${NAMESPACE}
+username: ntt-client
+# The secret "ntt-client-apikey" created via TF is referenced by name automatically by Kong when key-auth is used
+credentials:
+  - ntt-client-apikey

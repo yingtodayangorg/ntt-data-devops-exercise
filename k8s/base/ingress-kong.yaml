@@ -1,0 +1,48 @@
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: key-auth-plugin
+  namespace: ntt-devops
+config:
+  key_names:
+    - X-Parse-REST-API-Key
+  hide_credentials: false
+plugin: key-auth
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongConsumer
+metadata:
+  name: ntt-client
+  namespace: ntt-devops
+username: ntt-client
+credentials:
+  - ntt-client-apikey
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ntt-client-apikey
+  namespace: ntt-devops
+stringData:
+  key: 2f5ae96c-b558-4c7b-a590-a501ae1c3f6c
+  kongCredType: key-auth
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: devops-ingress
+  namespace: ntt-devops
+  annotations:
+    kubernetes.io/ingress.class: kong
+    konghq.com/plugins: key-auth-plugin
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /DevOps
+            pathType: Prefix
+            backend:
+              service:
+                name: devops-svc
+                port:
+                  number: 80

@@ -1,0 +1,15 @@
+resources:
+  - ../../base
+
+namePrefix: prod-
+namespace: ntt-devops-prod
+
+labels:
+  - pairs:
+      environment: prod
+
+patches:
+  - target:
+      kind: Deployment
+      name: devops-api
+    path: patch-env.yaml
