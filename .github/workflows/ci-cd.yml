@@ -36,7 +36,7 @@ jobs:
           python -m venv .venv
           source .venv/bin/activate
           pip install -r requirements.txt
-          pip install pytest flake8 coverage
+          pip install requirements-dev.txt
 
       - name: Lint code
         run: |
