@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   app:
     build:
@@ -6,10 +5,10 @@ services:
       dockerfile: Dockerfile
       args:
         IMAGE_TAG: ${IMAGE_TAG:-dev}
-    image: ghcr.io/yingtodayangorg/nttdevops-flask:${IMAGE_TAG:-dev}
+    image: nttdevops-flask:${IMAGE_TAG:-dev}
     environment:
       - API_KEY_VALUE=2f5ae96c-b558-4c7b-a590-a501ae1c3f6c
-      - JWT_SECRET=dev-secret-key-for-ntt-data-devops-api
+      - JWT_SECRET=secret-key-for-devops-api-ntt-data
     ports:
       - "8080:8080"
     deploy:
