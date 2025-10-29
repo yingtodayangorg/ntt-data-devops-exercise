@@ -7,18 +7,14 @@ resource "helm_release" "kong" {
 
   create_namespace = true
 
-  set {
-    name  = "ingressController.installCRDs"
-    value = "true"
-  }
-
-  set {
-    name  = "admin.enabled"
-    value = "true"
-  }
-
-  set {
-    name  = "proxy.type"
-    value = "LoadBalancer"
-  }
+  values = [
+    <<EOF
+ingressController:
+  installCRDs: true
+admin:
+  enabled: true
+proxy:
+  type: LoadBalancer
+EOF
+  ]
 }

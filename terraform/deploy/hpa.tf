@@ -16,14 +16,20 @@ resource "kubernetes_horizontal_pod_autoscaler_v2" "hpa" {
       type = "Resource"
       resource {
         name = "cpu"
-        target { type = "Utilization"; average_utilization = 60 }
+        target {
+          type               = "Utilization"
+          average_utilization = 60
+        }
       }
     }
     metric {
       type = "Resource"
       resource {
         name = "memory"
-        target { type = "Utilization"; average_utilization = 70 }
+        target {
+          type               = "Utilization"
+          average_utilization = 70
+        }
       }
     }
   }
