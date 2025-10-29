@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field
 
+
 class MessageIn(BaseModel):
     message: str = Field(..., min_length=1)
     to: str = Field(..., min_length=1)

@@ -5,10 +5,12 @@ import time
 
 _seen_jti = {}
 
+
 def _prune_expired(now: float):
     to_del = [k for k, exp in _seen_jti.items() if exp <= now]
     for k in to_del:
         _seen_jti.pop(k, None)
+
 
 def require_api_key_and_jwt(fn):
     @wraps(fn)

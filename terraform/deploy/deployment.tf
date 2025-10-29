@@ -37,23 +37,33 @@ resource "kubernetes_deployment" "app" {
               }
             }
           }
-          env { name = "ENVIRONMENT" value = var.environment }
+          env {
+            name  = "ENVIRONMENT"
+            value = var.environment
+          }
           resources {
             limits   = var.resources.limits
             requests = var.resources.requests
           }
           liveness_probe {
-            http_get { path = "/health"; port = 8080 }
-            initial_delay_seconds = 10
-            period_seconds        = 10
-          }
-          readiness_probe {
-            http_get { path = "/health"; port = 8080 }
+            http_get {
+              path = "/healthcheck"
+              port = 8080
+            }
             initial_delay_seconds = 5
             period_seconds        = 5
+          }
+          readiness_probe {
+            http_get {
+              path = "/healthcheck"
+              port = 8080
+            }
+            initial_delay_seconds = 5
+            period_seconds        = 5
+          }
           }
         }
       }
     }
   }
-}
+
