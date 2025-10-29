@@ -46,7 +46,8 @@ jobs:
       - name: Run unit tests
         run: |
           source .venv/bin/activate
-          pytest --maxfail=1 --disable-warnings --cov=app --cov-report=xml
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
+          pytest --maxfail=1 --disable-warnings --cov=app --cov-report=term-missing
 
       - name: Extract tag
         id: tag
