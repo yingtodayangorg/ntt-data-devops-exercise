@@ -1,5 +1,3 @@
-from . import create_app
-
 from flask import Flask
 from .config import Config
 from .auth import require_api_key_and_jwt
